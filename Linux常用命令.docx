@@ -66,8 +66,8 @@ Passwd  ftp      修改ftp密码
 13. ps -ef | grep java          查询进程  
  kill -9 进程ID_1 进程ID_2     结束进程
 
-14. 关闭防火墙
-  查询防火墙是否关闭
+14. SuSEfirewall12 stop关闭防火墙
+ SuSEfirewall12 status 查询防火墙是否关闭
 
 15. 修改时间
    date -s tomorrow
