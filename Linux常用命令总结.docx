@@ -1,0 +1,76 @@
+1. ll   显示当前路径下所有文件的详细信息
+ll =ls-l
+ls 仅仅显示当前路径下所有文件的名称
+ 
+2. cd 转换路径
+无论当前在什么路径下，都是可以直接切换到根路径下
+cd /file1/file2/file3               切换到根目录下的file1下的file2下的file3
+cd ~    回到用户家目录。 注:这得看你是用什么用户登录了,如果是以root身份登录,执行此命令后,回到/root/目录
+cd /     退回到根目录   
+cd..     退回上一级目录下   
+cd ../   退到上一级目录下
+cd ../..  退到上两级目录下
+cd ../../  退到上两级目录下
+cd file1   cd file1/    cd ./file1    切换到当前路径下
+
+3. mkdir   创建文件夹
+mkdir /file1/file2/file3      在已存在的/file1/file2/路径下创建一个文件夹file3
+mkdir -p /file1/file2/file3    当一次创建多层不存在的目录时，添加-p参数，否则报错。此命令适用情况：（1）  file1、file2、file3均不存在，则自动在根路径下创建file1，在file1下创建file2，在file2下创建file3。（2）file1存在，file2、file3不存在,则自动在file1下创建file2，在file2下创建file3。
+备注：mkdir是创建文件夹，touch是创建文本文件
+如：touch wang       创建一个文本文件wang.txt
+
+4. rm    删除文件
+-r    递归      -f   强制
+rm file1             回复Y删除当前路径下的文件1
+rm ./file1            回复Y删除当前路径下的文件1
+rm -r ./file1          回复Y删除file1以及file1下的子文件
+rm -rf ./file1          直接删除file1以及file1下的子文件
+rm -rf file1 file2       直接删除当前路径下的file1、file2及它们的子文件
+
+5. mv   移动、更名(移动：路径不同。更名：路径相同)
+mv  /file1/file01/file001  /file2/file02/file002    将file001移动到file002
+mv  /file1/file01/file001  /file1/file01/file_wang  将file001更名为file_wang
+
+6.copy 复制
+
+copy /file1/file2/file3.txt  /file01/file02/file03   将文件file3.txt复制到文件夹file03下
+copy  -r  /file1/file2/file3  /file01/file02/file03   将文件夹file3复制到文件夹file03下
+
+7.vi 编辑
+当前路径下有一个需要编辑的文件install.log，编辑它~
+vi  install.log          打开此文件
+按i                  使为可编辑状态，然后想怎么编辑就编辑吧
+编辑完输入   ：wq!     保存退出
+q!不保存，退出
+
+8. cat    显示文档内容
+Cat install.log      展示出install.log中的内容
+
+9.   unzip     解压
+Unzip  pipelineB411.zip  -d  B411 将pipelineB411解压命名为B411
+Sh setup.sh   安装
+Sh startup.sh   开始进程
+Sh shutdown.sh   停止进程
+
+10. free   查看内存
+Free  -m       查看内存，以M为单位显示内存
+Free  -g        查看内存，以G为单位显示内存
+
+11. Passwd   修改密码
+Passwd  ftp      修改ftp密码
+
+12.mysql -uroot -p  验证你的数据库密码是否正确
+ 输入这个命令，换行，提示输入密码，输入你的数据库密码如果目录变为  mysql> 表示正确
+
+13. ps -ef | grep java          查询进程  
+ kill -9 进程ID_1 进程ID_2     结束进程
+
+14. 关闭防火墙
+  查询防火墙是否关闭
+
+15. 修改时间
+   date -s tomorrow
+   date -s yesterday
+   date -s 16:20:40 
+   date   查询时间 
+
