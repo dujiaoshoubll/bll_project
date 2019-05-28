@@ -1,6 +1,6 @@
-下载代码：
-git clone 仓库地址 ：（不指定分支，默认下载master代码）下载主干代码
-git clone 仓库地址 指定目录 ：clone到指定目录
-git clone -b 新分支名字 仓库地址 : clone时创建新的分支替代默认Origin HEAD（master）
-使用Git下载指定分支命令为：git clone -b 分支名仓库地址
-
+1.创建版本库：
+git clone <url>   ##（不指定分支，默认下载master代码）克隆远程版本库
+git clone <url> 指定目录   ----clone到指定目录
+git clone -b 新分支名字 仓库地址  ---- clone时创建新的分支替代默认Origin HEAD（master）
+git checkout -t origin/分支名称 或 git checkout -b dev origin/分支名称  ----在本地新建远程同名分支并切换到该分支
+2.
