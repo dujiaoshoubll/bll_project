@@ -59,3 +59,44 @@ $ git branch -a
 $ git branch [branch-name]
 #新建一个分支，并切换到该分支
 $ git checkout -b [branch-name]
+#新建一个分支，指向指定commit
+$ git branch [branch] [commit]
+#新建一个分支，与指定的远程分支建立追踪关系
+git branch --trach [branch] [remote-branch]
+#切换到指定分支，并更新工作区
+$ git chenckout [branch-name]
+#切换到上一个分支
+$ git checkout -
+#建立追踪关系，在现有分支与指定的远程分支之间
+$ git branch --set-upstream [branch] [remote-branch]
+#合并指定分支到当前分支
+$ git merge [branch]
+#选择一个commit,合并进当前分支
+$ git cherry-pick [commit]
+#删除分支
+$ git branch -d [branch-name]
+#删除远程分支
+$ git push origin --delete [branch-name]
+$ git branch -dr [remote/branch]
+
+查看信息：
+#显示所有变更的文件
+$ git status
+#显示当前分支的版本历史
+$ git log 
+#显示commit历史，以及每次commit发生变更的文件
+$ git log --stat
+#搜索提交历史，根据关键词
+$ git log -S [keyword]
+#显示暂存区和工作区的差异
+$ git diff
+#显示当前分支的最近几次提交
+$ git reflog
+
+远程同步：
+#下载远程仓库的所有变动
+$ git fetch [remote]
+#显示所有远程仓库
+$ git remote -v
+#显示某个远程仓库的信息
+$ git remote show [remote]
