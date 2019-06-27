@@ -1,0 +1,3 @@
+#检测一个值是否是整数，可以使用ES6中得Number.isInteger(...)方法：
+Number.isInteger(42.3)
+#es6中新加入了一个工具方法Object.is(...)判断两个值是否绝对相等
