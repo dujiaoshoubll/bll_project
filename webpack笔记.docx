@@ -83,3 +83,35 @@ npm install --save-dev style-loader css-loader
 
 2.加载图片
 假想，现在我们正在下载 CSS，但是我们的背景和图标这些图片，要如何处理呢？使用 file-loader，我们可以轻松地将这些内容混合到 CSS 中：
+npm install --save-dev file-loader
+
+修改webpack.config.js文件
+
+  const path = require('path');
+
+  module.exports = {
+    entry: './src/index.js',
+    output: {
+      filename: 'bundle.js',
+      path: path.resolve(__dirname, 'dist')
+    },
+    module: {
+      rules: [
+        {
+          test: /\.css$/,
+          use: [
+            'style-loader',
+            'css-loader'
+          ]
+        },
++       {
++         test: /\.(png|svg|jpg|gif)$/,
++         use: [
++           'file-loader'
++         ]
++       }
+      ]
+    }
+  };
+  
+
