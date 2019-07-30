@@ -26,3 +26,11 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   }
 };
+然后通过新配置文件再次执行构建
+npx webpack --config webpack.config.js
+6.NPM 脚本(NPM Scripts)
+"scripts": {
+      "build": "webpack"
+ },
+ 可以使用 npm run build 命令，来替代我们之前使用的 npx 命令
+ 通过向 npm run build 命令和你的参数之间添加两个中横线，可以将自定义参数传递给 webpack，例如：npm run build -- --colors
