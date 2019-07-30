@@ -1,0 +1,17 @@
+前提条件：
+1.安装了 Node.js 的最新版本
+2.基本安装：
+创建一个目录: mkdir webpack-demo && cd webpack-demo
+初始化npm( 初始化一个package.json 描述文件): npm init -y /npm init
+安装 webpack 
+安装最新版本: npm install --save-dev webpack
+安装特定版本: npm install --save-dev webpack@<version>
+安装 CLI
+如果你使用 webpack 4+ 版本，你还需要安装 CLI。
+本地安装: npm install --save-dev webpack-cli 
+当你在本地安装 webpack 后，你能够从 node_modules/.bin/webpack 访问它的 bin 版本
+全局安装: npm install --global webpack
+3.创建以下目录结构、文件和内容：
+4.执行 npx webpack
+会将我们的脚本作为入口起点，然后 输出 为 main.js。
+Node 8.2+ 版本提供的 npx 命令，可以运行在初始安装的 webpack 包(package)的 webpack 二进制文件（./node_modules/.bin/webpack）
