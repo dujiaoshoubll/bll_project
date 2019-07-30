@@ -15,3 +15,14 @@
 4.执行 npx webpack
 会将我们的脚本作为入口起点，然后 输出 为 main.js。
 Node 8.2+ 版本提供的 npx 命令，可以运行在初始安装的 webpack 包(package)的 webpack 二进制文件（./node_modules/.bin/webpack）
+5.使用配置文件
+新建一个webpack.config.js文件
+配置入口和出口文件：
+const path = require('path');
+module.exports = {
+  entry: './src/index.js',
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
+  }
+};
