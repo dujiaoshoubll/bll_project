@@ -34,3 +34,4 @@ npx webpack --config webpack.config.js
  },
  可以使用 npm run build 命令，来替代我们之前使用的 npx 命令
  通过向 npm run build 命令和你的参数之间添加两个中横线，可以将自定义参数传递给 webpack，例如：npm run build -- --colors
+7.加载 CSS
