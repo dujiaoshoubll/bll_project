@@ -113,5 +113,10 @@ npm install --save-dev file-loader
       ]
     }
   };
-  
+  在项目中添加一个图片
+  在src/style.css中添加背景图片
+  .hello {
+    color: red;
++   background: url('./icon.png');
+  }
 
