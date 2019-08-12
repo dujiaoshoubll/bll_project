@@ -113,10 +113,32 @@ npm install --save-dev file-loader
       ]
     }
   };
+  
   在项目中添加一个图片
+  修改src/index.js文件
+  import _ from 'lodash';
+  import './style.css';
++ import Icon from './icon.png';
+
+  function component() {
+    var element = document.createElement('div');
+    // Lodash，现在由此脚本导入
+    element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+    element.classList.add('hello');
+
++   // 将图像添加到我们现有的 div。
++   var myIcon = new Image();
++   myIcon.src = Icon;
++
++   element.appendChild(myIcon);
+
+    return element;
+  }
+  document.body.appendChild(component());
+  
   在src/style.css中添加背景图片
   .hello {
     color: red;
 +   background: url('./icon.png');
   }
-
+然后执行构建命令 npm run build，完成后检查页面图片有没有展示出来
