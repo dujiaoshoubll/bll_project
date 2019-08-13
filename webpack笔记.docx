@@ -142,3 +142,52 @@ npm install --save-dev file-loader
 +   background: url('./icon.png');
   }
 然后执行构建命令 npm run build，完成后检查页面图片有没有展示出来
+3.file-loader 和 url-loader 可以接收并加载任何文件，然后将其输出到构建目录。这就是说，我们可以将它们用于任何类型的文件，包括字体
+修改webpack.config.js文件
+  const path = require('path');
+
+  module.exports = {
+    entry: './src/index.js',
+    output: {
+      filename: 'bundle.js',
+      path: path.resolve(__dirname, 'dist')
+    },
+    module: {
+      rules: [
+        {
+          test: /\.css$/,
+          use: [
+            'style-loader',
+            'css-loader'
+          ]
+        },
+        {
+          test: /\.(png|svg|jpg|gif)$/,
+          use: [
+            'file-loader'
+          ]
+        },
++       {
++         test: /\.(woff|woff2|eot|ttf|otf)$/,
++         use: [
++           'file-loader'
++         ]
++       }
+      ]
+    }
+  };
+  在项目中添加一些字体
+   webpack-demo
+  |- package.json
+  |- webpack.config.js
+  |- /dist
+    |- bundle.js
+    |- index.html
+  |- /src
++   |- my-font.woff
++   |- my-font.woff2
+    |- icon.png
+    |- style.css
+    |- index.js
+  |- /node_modules
+  
