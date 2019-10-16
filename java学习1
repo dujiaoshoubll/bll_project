@@ -12,6 +12,7 @@
 1.下载JDK（JDK是Sun公司提供的一种免费的Java软件开发工具包，里面包含了很多用于Java程序开发的工具，最常用的是编译和运行工具。）
 2.安装JDK（可以选择要安装的Java组件和JDK文件的安装路径）
 3.配置JDK
-（1.新建系统变量，在变量名文本框中输入“PATH”，在变量值文本框中输入“C:\Program Files\Java\jdk1.6.0_02\bin;”,注意以分号结尾。
-2.新建系统变量，在变量名文本框中输入“CLASSPATH”，在变量值文本框中输入“C:\Program Files\Java\jdk1.6.0_02\LIB\TOOLS.JAR;”,注意以分号结尾。
-3.配置完成后，测试一下是否配置成功，cmd界面上输入javac命令）
+（配置系统变量   变量名：JAVA_HOME  变量值：D:\Program Files (x86)\Java\jdk1.7.0_17;
+变量名：Path  变量值：%JAVA_HOME%\bin;%JAVA_HOME%\jre\bin;
+变量名：CLASSPATH  变量值：.;%JAVA_HOME%\lib\dt.jar;%JAVA_HOME%\lib\tools.jar;
+配置完成后，测试一下是否配置成功，cmd界面上输入java -version命令验证）
