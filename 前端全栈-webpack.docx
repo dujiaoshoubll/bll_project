@@ -28,3 +28,13 @@ npm i stype-loader css-loader
 对样式处理：加前缀
 postcss-loader  ：帮助webpack加载css,并解析里面的样式
 autoprefixer  :根据浏览器兼容表选择添加样式兼容前缀
+
+---------------------------------------------------------------------
+插件
+postcss.config文件
+module.exports={
+  plugins:[
+    require('autoprefixer');
+  ]
+}
+
