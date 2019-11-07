@@ -38,7 +38,7 @@ module.exports = {
   },
   module: {
     rules: {
-      test:/\.css$/, use['style-loader', 'css-loader']
+      test:/\.css$/, use['style-loader', 'css-loader','postcss-loader']
     }
   }
 };
@@ -46,16 +46,15 @@ module.exports = {
 ----------------------------------------------------------------------
 对样式处理：加前缀
 postcss-loader  ：帮助webpack加载css,并解析里面的样式
-autoprefixer  :根据浏览器兼容表选择添加样式兼容前缀
+autoprefixer  :根据浏览器兼容表选择添加样式兼容前缀(默认大于5%的用户，可以修改)
 
 ---------------------------------------------------------------------
 插件
-postcss.config文件
+postcss.config.js文件
 module.exports={
   plugins:[
     require('autoprefixer');
   ]
 }
-
 ---------------------------------------------------------------------
 
