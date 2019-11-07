@@ -21,10 +21,27 @@ mudule.exports={
 loader--帮助webpack处理js以外的文件
 
 ----------------------------------------------------------------------
-css-loader
+css loader
 
 下载
 npm i stype-loader css-loader
+
+例：
+const path = require('path');
+webpack.config.js文件
+module.exports = {
+  mode: 'development',
+  entry: './src/js/1.js',
+  output: {
+    path:path.resove(_dirname, 'build'),
+    filename: 'bundle.min.js'
+  },
+  module: {
+    rules: {
+      test:/\.css$/, use['style-loader', 'css-loader']
+    }
+  }
+};
 
 ----------------------------------------------------------------------
 对样式处理：加前缀
