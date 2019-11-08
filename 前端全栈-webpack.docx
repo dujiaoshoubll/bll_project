@@ -61,7 +61,7 @@ file-loader 读取并且输出文件
 
 module: {
     rules: {
-      test:/\.(jpg|png|gif)$/, use:{
+      test:/\.(jpg|png|gif)$/i, use:{
         loader: 'file-loader',
         options: {
           outputPath: 'images/'
@@ -75,7 +75,7 @@ url-loader  读取并且输出base64
 下载 cnpm i url-loader -D
 module: {
     rules: {
-      test:/\.(jpg|png|gif)$/, use:{
+      test:/\.(jpg|png|gif)$/i, use:{
         loader: 'url-loader',
         options: {
           outputPath: 'images/',
@@ -86,4 +86,11 @@ module: {
   }
   
   -----------------------------------------------------------------------
+  less-loader
+  下载 cnpm i less-loader -D
   
+  module: {
+    rules: {
+      test:/\.less$/i, use:['style-loader', 'css-loader', 'less-loader']
+    }
+  }
