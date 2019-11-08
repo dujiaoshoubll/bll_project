@@ -38,7 +38,7 @@ module.exports = {
   },
   module: {
     rules: {
-      test:/\.css$/, use['style-loader', 'css-loader','postcss-loader']
+      test:/\.css$/, use:['style-loader', 'css-loader','postcss-loader']
     }
   }
 };
@@ -46,7 +46,7 @@ module.exports = {
 ----------------------------------------------------------------------
 对样式处理：加前缀
 postcss-loader  ：帮助webpack加载css,并解析里面的样式
-autoprefixer  :根据浏览器兼容表选择添加样式兼容前缀(默认大于5%的用户，可以修改)
+autoprefixer  :根据浏览器兼容表选择添加样式兼容前缀(默认大于5%的用户，可以修改配置)
 
 ---------------------------------------------------------------------
 插件
@@ -57,4 +57,15 @@ module.exports={
   ]
 }
 ---------------------------------------------------------------------
+file-loader
 
+module: {
+    rules: {
+      test:/\.(jpg|png|gif)$/, use:{
+        loader: 'file-loader',
+        options: {
+          
+        }
+      }
+    }
+  }
