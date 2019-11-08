@@ -57,7 +57,7 @@ module.exports={
   ]
 }
 ---------------------------------------------------------------------
-file-loader
+file-loader 读取并且输出文件
 
 module: {
     rules: {
@@ -69,3 +69,21 @@ module: {
       }
     }
   }
+
+-----------------------------------------------------------------------
+url-loader  读取并且输出base64
+下载 cnpm i url-loader -D
+module: {
+    rules: {
+      test:/\.(jpg|png|gif)$/, use:{
+        loader: 'url-loader',
+        options: {
+          outputPath: 'images/',
+          limit:1024
+        }
+      }
+    }
+  }
+  
+  -----------------------------------------------------------------------
+  
