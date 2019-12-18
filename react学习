@@ -1,6 +1,7 @@
 1.1前言
 React 起源于 Facebook 的内部项目，因为该公司对市场上所有 JavaScript MVC 框架，都不满意，就决定自己写一套，用来架设Instagram 的网站。
 做出来以后，发现这套东西很好用，就在2013年5月开源了。
+
 1.2 React 模板
 <!DOCTYPE html>
 <head>
@@ -17,3 +18,7 @@ React 起源于 Facebook 的内部项目，因为该公司对市场上所有 Jav
 </body>
 </html>
 最后一个<script>标签的type属性值为text/babel,这是因为React独有的JSX语法，跟Javascript不兼容。凡是使用JSX的地方，都要加上 type = "text/babel" 。
+上面代码一共用了三个库：react.js、react-dom.js和Browser.js,他们必须首先加载，其中react.js是React的核心库，react-dom.与DOM相关的功能，Browser.js
+的作用是将JSX语法转为Javascript语法，这一步很消耗时间，实际上线的时候，应该把它放到服务器上完成。
+
+1.3ReactDom.render()方法
