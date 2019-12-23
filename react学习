@@ -44,5 +44,17 @@ ReactDOM.render(
 );
 上面代码体现了JSX的基本语法规则：遇到HTML标签（以<开头），就用HTML规则解析；遇到代码块（以{开头），就用JavaScript规则解析。
 
-JSX
+JSX允许直接在模板插入JavaScript变量。如果这个变量是一个数组，则会展开这个数组的所有成员。
+var arr = [
+    <h1>Hello world!</h1>,
+    <h2>React is Awesome</h2>,
+];
+ReactDOM.render(
+    <div>{arr}</div>,
+    document.getElementById("app")
+);
+上面代码的arr变量是一个数组，结果JSX会把它的所有成员添加到模板。
+
+1.4 组件
+
 
