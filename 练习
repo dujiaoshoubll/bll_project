@@ -1,0 +1,141 @@
+
+/* 按规定重排给定字符串			
+要求：输入一个字符串，字符串是字母和数字的组合，(非字母数字直接删除)			
+      实现输出一个新的字符串，要求字母在前面，数字在后面，顺序不变			
+用例1：			
+    输入字符串：a1b2c3d4e5			
+    期望结果：abcde12345			
+用例2：    			
+    输入：a-1%b2&c3~d4e5~		
+    期望结果：abcde12345			
+用例3：			
+输入：a-0%A2&c3~Z4e5z9~		
+    期望结果：aAcZez023459 */
+
+
+var str1 = "a1b2c3d4e5";
+var str2 = "a-1%b2&c3~d4e5~";
+var str3 = "a-0%A2&c3~Z4e5z9~";
+
+function reflow(str) {
+    var res1 = str.replace(/[^0-9a-zA-Z]/g, "");
+    var num = res1.match(/[0-9]/g).join("");
+    var alphabet = res1.match(/[a-zA-Z]/g).join("");
+    return alphabet + num;
+}
+console.log(reflow(str1));
+console.log(reflow(str2));
+console.log(reflow(str3));
+
+
+
+* 获取二维数组中每列最小值			
+    用例1：			
+   	输入数组：[[3,6,5],[0,2,10],[10,8,9]]		
+   	期望结果：[0,2,5]
+    用例2：			
+        输入数组：[[3,6,5],[0,2,10],[10,8,9],[11,12,13,14]]		
+   	期望结果：[0,2,5,14]		
+*/	
+
+var arr1 = [[3,6,5],[0,2,10],[10,8,9]];
+var arr2 = [[3,6,5],[0,2,10],[10,8,9],[11,12,13,14]];
+
+function minArr(arr) {
+    var maxLength = 0;
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i].length > maxLength) {
+            maxLength = arr[i].length;
+        };
+    }
+    var newArr = [];
+    for (var i = 0; i < arr.length; i++) {
+        for (var j = 0; j < maxLength; j++) {
+            if ((newArr[j] !== undefined && arr[i][j] !== undefined && arr[i][j] < newArr[j]) || (newArr[j] === undefined && arr[i][j] !== undefined)) {
+                newArr[j] = arr[i][j];
+            }
+        }
+    }
+    return newArr;
+}
+console.log(minArr(arr1));
+console.log(minArr(arr2));
+
+
+
+
+/* 查询最长单词			                                                      
+    用例1：			
+        输入字符串：Genetics To undergo or cause recombination; form new combinations.			
+   	期望结果：recombination		
+    用例2：			
+        输入字符串：Genetics 0123456789101 undergo or cause recombination; form new combinations.			
+   	期望结果：0123456789101 */
+
+
+var str1 = "Genetics To undergo or cause recombination; form new combinations.";
+var str2 = "Genetics 0123456789101 undergo or cause recombination; form new combinations.";
+function getLongestWord(str) {
+    var arr = str.replace(/[^0-9a-zA-Z]/g, " ").split(" ");
+    var longestWord = null;
+    for (var i = 0; i< arr.length; i++) {
+        if(!longestWord  || (longestWord && arr[i].length > longestWord.length)) {
+            longestWord = arr[i];
+        }
+    }
+    return longestWord;
+}
+console.log(getLongestWord(str1));
+console.log(getLongestWord(str2));
+
+
+
+
+/* 将数字替换成字母 			
+     要求：按ASCII码替换，如65替换成A。非字母以?替代 			
+     用例1：			
+        输入：{15,20,70,122,575}			
+       期望结果：??fZ? 
+       Tip:for循环，字母范围65-90,97-122，char可以直接声明数字*/
+
+var str1 = "15,20,70,122,575";
+function convertLetters(str) {
+    var arr = str.split(',');
+    for (var i = 0; i <arr.length; i++) {
+        arr[i] = String.fromCharCode(arr[i]);
+    }
+    return arr.join("").replace(/[^a-zA-Z]/g,"?");
+}
+console.log(convertLetters(str1));
+
+
+
+/* 比较2个字符串的大小			
+    用例1：			
+        输入：str1="HARD",str2="hark"			
+   	期望结果：-7		
+    用例2：			
+        输入：str1="hark",str2="HARD"			
+   	期望结果：7		
+    用例3：			
+        输入：str1="hark",str2="hark"			
+   	期望结果：0 */
+
+       var str01="HARD", str02="hark";
+       var str11="hark", str12="HARD";
+       var str21="hark", str22="hark";
+
+       function compare(str1, str2) {
+            return str1.charCodeAt() - str2.charCodeAt();
+       }
+       console.log(compare(str01, str02));
+       console.log(compare(str11, str12));
+       console.log(compare(str21, str22));
+       
+       
+       
+       
+       
+       // 用正则表达式将下列数字按千位逗号分开 12345678901，结果成 12,345,678,901
+     
+
