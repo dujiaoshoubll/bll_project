@@ -58,3 +58,10 @@ contains  _contains(list,value)   别名：include
 _contains([1,2,3],3);
 => true
 
+max  _max(list,[iteratee],[context])
+返回list中的最大值。如果传递iteratee参数，iteratee将作为list中的每个值的排序依据。如果list为空，将返回-infinity，
+所以你可能需要事先用isEmpty检测list。
+var stooges = [{name:'moe',age:40},{name:'larry',age:50},{name:'curly',age:60}];
+_max(stooges,function(stooge){return stooge.age;});
+=> {name:'curly',age:60};
+
