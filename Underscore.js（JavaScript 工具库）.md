@@ -39,3 +39,22 @@ var sum=_.reduce([1,2,3],function(memo,num){return memo+num;},0);
 
 find _find(list,predicate,[context])  别名：detect
 在list中逐项查找，返回第一个通过predicate迭代函数真值检测的元素值，如果没有值传递给测试迭代器将返回underfined。
+如果找到匹配的元素，函数将立即返回，不会遍历整个list。
+var even=_.find([1,2,3,4,5,6],function(num){return num % 2==0;});
+=> 2
+
+filter  _.filter(list,predicate,[context])  别名：select
+遍历list中的每个值，返回包含所有通过predicate真值检测的元素值。（注：如果存在原生filter方法，则用原生的filter方法。）
+var evens=_filter([1,2,3,4,5,6],function(num){return num % 2==0;});
+=> [2,4,6]
+
+reject  _reject(list,predicate,[context])
+返回list中没有通过predicate真值检测的元素集合，与filter相反。
+var odds=_reject([1,2,3,4,5,6],function(num){return num % 2 ==0;});
+=> [1,3,5]
+
+contains  _contains(list,value)   别名：include
+如果list包含指定的value则返回true（注：使用===检测）。如果list是数组，内部使用indexof判断。
+_contains([1,2,3],3);
+=> true
+
