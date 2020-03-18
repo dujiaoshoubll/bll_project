@@ -21,4 +21,21 @@ _each([1,2,3],alert);
 _each({one：1，two:2,three:3},alert);
 => alert each number value in turn...
 
-map _map(list,iteratee,[context])   别名：
+map  _map(list,iteratee,[context])   别名：collect
+通过变换函数（itetatee迭代器）把list中的每个值映射到一个新的数组中（注：产生一个新的数组）。如果存在原生的map方法，就用原生map方法代替。
+如果list是个JavaScript对象，iteratee的参数是（value,key,list）。
+_map([1,2,3],function(num){return num*3;});
+=> [3,6,9]
+_map({one:1,two:2,three:3},function(num,key){return num*3;});
+=> [3,6,9]
+
+reduce  _reduce(list,iteratee,[memo],[context])   别名:inject,foldl
+reduce方法把list中元素归结为一个单独的数值。Memo是reduce函数的初始值，reduce的每一步都需要由iteratee返回。
+这个迭代传递4个参数:memo,value和迭代的index(或者key)和最后一个引用的整个list.
+
+如果没有memo传递给reduce的初始调用，iteratee不会被列表中的第一个元素调用。第一个元素将取代传递给列表中的下一个元素调用iteratee的momo参数。
+var sum=_.reduce([1,2,3],function(memo,num){return memo+num;},0);
+=> 6
+
+find _find(list,predicate,[context])  别名：detect
+在list中逐项查找，返回第一个通过predicate迭代函数真值检测的元素值，如果没有值传递给测试迭代器将返回underfined。
