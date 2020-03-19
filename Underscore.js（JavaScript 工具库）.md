@@ -74,3 +74,19 @@ _.min(numbers);
 
 数组函数（Array Functions）
 注：arguments(参数)对象将在所有数组函数中工作，然而，Underscore函数的设计并不只是针对稀疏（"sparse"）数组的。
+
+first   _.first(arry,[n])  别名：head,take
+返回array(数组)的第一个元素。传递n参数将返回数组中从第一个元素开始的n个元素（注：返回数组中前n个元素）。
+_.first([5,4,3,2,1]);
+=> 5
+
+initial  _.initial(array,[n])
+返回数组中除了最后一个元素外的其它全部元素。在arguments对象上特别有用。
+传递n参数将从结果中排除从最后一个开始的n个元素（注：排除数组后面的n个元素）。
+_.initial(5,4,3,2,1);
+=> [5,4,3,2]
+
+last  _.last(array,[n])
+返回array（数组）的最后一个元素。传递n参数将返回数组中从最后一个元素开始的n个元素（）
+
+
