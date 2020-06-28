@@ -1,0 +1,79 @@
+Angular7创建一个服务及数据持久化
+Angular7 服务及数据持久化
+
+github源码地址：https://github.com/wangduxiu/Angular7-Demo.git
+
+服务
+
+先创建一个服务ng service services/storage
+创建完服务需要在app.module.ts中引用和声明
+import { StorageService } from './services/storage.service';
+providers: [StorageService],
+
+在服务中定义一个公有的方法
+  get(){
+    return '我是一个服务';
+  }
+
+在其他组件中调用需要再次引入这个服务
+import { StorageService } from '../../services/storage.service';
+
+然后再constructor中实例化，通过this调用对象点方法
+
+  constructor(public storage:StorageService) { 
+    console.log(this.storage.get());
+  }
+
+数据持久化
+
+利用LocalStorage 在服务定义好方法：
+  //LocalStorage设置数据
+  set(key:string,value:any){
+    localStorage.setItem(key,JSON.stringify(value));
+  }
+  //获取数据
+  get(key:string){
+    return JSON.parse(localStorage.getItem(key));
+  }
+  //删除数据
+  remove(key:string){
+    localStorage.removeItem(key);
+  }
+
+在其他模块中，添加数据先将数据放到storage中
+  /**添加到待办事项中 */
+  doAdd(e) {
+    if(e.keyCode == 13 && this.keyWords) {
+      if(!this.tolistHasKeyWord(this.toList,this.keyWords)){
+        this.toList.push({
+          title:this.keyWords,
+          status:0        //0表示待办事项   1表示已完成事项
+        }); 
+         
+        //**  将数据缓存到storage  **
+        this.storage.set('todolist',this.toList);
+
+      }else{
+        alert("输入内容重复");
+      }
+      this.keyWords=""; 
+    }
+  }
+
+删除数据也要将删除后的数据重新set到storage中
+  /**删除待办事项 */
+  delData(key) {
+    this.toList.splice(key,1);
+    //将删除后的数据重新set到storage中
+    this.storage.set('todolist',this.toList);
+  }
+
+然后在页面初始化（Oninit）的时候先到storage中看有没有数据，如果有优先将storage中的数据渲染到页面中
+  ngOnInit() {
+    //判断storage中有没有数据
+    var todolist:any = this.storage.get('todolist');
+    //如果有则将数据赋值给this.toilst
+    if(todolist){
+      this.toList = todolist;
+    }
+  }
