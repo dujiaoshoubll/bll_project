@@ -1,0 +1,204 @@
+【源码系列】浅析vue-router的三种模式
+浅析vue-router的三种方法
+
+面试官： 请说一下vue-router的2种方法…
+
+【源码系列】浅析vue-router的三种方法
+
+我： vue-router不是有3种方法吗？？？
+一.前语
+vue-router到底有几种方法？
+
+【源码系列】浅析vue-router的三种方法
+
+根据vue-router官网，咱们能够清楚看到vue-router的mode值有3种
+
+hash
+history
+abstract
+
+其间，hash 和 history 是 SPA 单页运用程序的基础。
+
+先说结论： spa运用路由有2种方法，hash 和 history，vue路由有3种方法，比 spa 多了一个 abstract。
+
+二.源码分析
+在vue-router中经过mode这个参数修正路由的方法：
+
+const router = new VueRouter({
+mode: 'history',
+routes: [...]
+})
+具体怎样完毕的呢，首要咱们下载 vue-router 的源码
+
+抽离出来对mode的处理
+
+class vueRouter {
+constructor(options) {
+let mode = options.mode || 'hash'
+this.fallback =
+mode === 'history' && !supportsPushState && options.fallback !== false
+if (this.fallback) {
+mode = 'hash'
+}
+if (!inBrowser) {
+mode = 'abstract'
+}
+this.mode = mode
+switch (mode) {
+case 'history':
+this.history = new HTML5History(this, options.base)
+break
+case 'hash':
+this.history = new HashHistory(this, options.base, this.fallback)
+break
+case 'abstract':
+this.history = new AbstractHistory(this, options.base)
+break
+default:
+if (process.env.NODE_ENV !== 'production') {
+assert(false, `invalid mode: ${mode}`)
+}
+}
+}
+}
+能够看到默许运用的是 hash 方法，当设置为 history 时，假设不支持 history 方法，也会强制运用 hash 方式。
+当不在浏览器环境，比方 node 中时，直接强制运用 abstract 方法。
+
+hash方法
+阅览这部分源码前，咱们先来了解下 hash 的基础：
+根据MDN上的介绍，Location 接口的 hash 特征回来一个 USVString，其间会包括URL标识中的 ‘#’ 和 后边URL片段标识符，’#’ 和后边URL片段标识符被称为 hash。
+它有这样一些特征：
+
+在第一个#后边出现的任何字符，都会被浏览器解读为方位标识符。这意味着，这些字符都不会被发送到服务器端。
+单单改动#后的部分，浏览器只会滚动到相应方位，不会从头加载网页。
+每一次改动#后的部分，都会在浏览器的访问前史中添加一个记载，运用”撤离”按钮，就能够回到上一个方位。
+可通过window.location.hash特征读取 hash 值，而且 window.location.hash 这个特征可读可写。
+运用 window.addEventListener(“hashchange”, fun) 能够监听 hash 的改动
+了解了这些基本知识后，咱们继续来看 vue-router 源码对 /src/history/hash.js 的处理
+
+    const handleRoutingEvent = () =&gt; {
+const current = this.current
+if (!ensureSlash()) {
+return
+}
+this.transitionTo(getHash(), route => {
+if (supportsScroll) {
+handleScroll(this.router, route, current, true)
+}
+if (!supportsPushState) {
+replaceHash(route.fullPath)
+}
+})
+}
+const eventType = supportsPushState ? 'popstate' : 'hashchange'
+window.addEventListener(
+eventType,
+handleRoutingEvent
+)
+this.listeners.push(() => {
+window.removeEventListener(eventType, handleRoutingEvent)
+})
+首要也是运用 window.addEventListener(“hashchange”, fun) 监听路由的改动,然后运用 transitionTo 方法更新视图
+
+  push (location: RawLocation, onComplete?: Function, onAbort?: Function) {
+const { current: fromRoute } = this
+this.transitionTo(
+location,
+route => {
+pushHash(route.fullPath)
+handleScroll(this.router, route, fromRoute, false)
+onComplete && onComplete(route)
+},
+onAbort
+)
+}
+replace (location: RawLocation, onComplete?: Function, onAbort?: Function) {
+const { current: fromRoute } = this
+this.transitionTo(
+location,
+route => {
+replaceHash(route.fullPath)
+handleScroll(this.router, route, fromRoute, false)
+onComplete && onComplete(route)
+},
+onAbort
+)
+}
+vue-router 的2个首要API push 和 replace 也是简略处理了下 hash , 然后调用 transitionTo 方法更新视图
+
+history方法
+老规矩，先来了解下 HTML5History 的的基本知识：
+根据MDN上的介绍，History 接口容许操作浏览器的曾经在标签页或许结构里访问的会话前史记载。
+运用 back(), forward()和 go() 方法来完毕在用户前史记载中向后和向前的跳转。
+HTML5引入了 history.pushState() 和 history.replaceState() 办法，它们别离能够增加和修正前史记载条目。
+稍微了解下 history.pushState()：
+
+window.onpopstate = function(e) {
+alert(2);
+}
+let stateObj = {
+foo: "bar",
+};
+history.pushState(stateObj, "page 2", "bar.html");
+这将使浏览器地址栏显现为 mozilla.org/bar.html ，但并不会导致浏览器加载 bar.html ，乃至不会检查bar.html 是否存在。
+也就是说，虽然浏览器 URL 改动了，但不会当即从头向服务端发送央求，这也是 spa运用 更新视图但不 从头央求页面的基础。
+接着咱们继续看 vue-router 源码对 /src/history/html5.js 的处理：
+
+    const handleRoutingEvent = () => {
+const current = this.current
+// Avoiding first `popstate` event dispatched in some browsers but first
+// history route not updated since async guard at the same time.
+const location = getLocation(this.base)
+if (this.current === START &&amp; location === this._startLocation) {
+return
+}
+this.transitionTo(location, route => {
+if (supportsScroll) {
+handleScroll(router, route, current, true)
+}
+})
+}
+window.addEventListener('popstate', handleRoutingEvent)
+this.listeners.push(() => {
+window.removeEventListener('popstate', handleRoutingEvent)
+})
+处理逻辑和 hash 类似，运用 window.addEventListener(“popstate”, fun) 监听路由的改动,然后运用 transitionTo 方法更新视图。
+push 和 replace 等方法就不再详细介绍。
+abstract方法
+终究咱们直接来看一下对 /src/history/abstract.js 的处理：
+
+  constructor (router: Router, base: ?string) {
+super(router, base)
+this.stack = []
+this.index = -1
+}
+首要界说了2个变量，stack 来记载调用的记载， index 记载当时的指针方位
+
+  push (location: RawLocation, onComplete?: Function, onAbort?: Function) {
+this.transitionTo(
+location,
+route => {
+this.stack = this.stack.slice(0, this.index + 1).concat(route)
+this.index++
+onComplete && onComplete(route)
+},
+onAbort
+)
+}
+replace (location: RawLocation, onComplete?: Function, onAbort?: Function) {
+this.transitionTo(
+location,
+route =&gt; {
+this.stack = this.stack.slice(0, this.index).concat(route)
+onComplete &&amp; onComplete(route)
+},
+onAbort
+)
+}
+push 和 replac方法 也是经过 stack 和 index 2个变量，模拟出浏览器的前史调用记载。
+三.总结
+总算到了终究的总结阶段了：
+
+hash 和 history 的运用方法差不多，hash 中路由带 # ，但是运用简略，不需求服务端协作，站在技术角度讲，这个是配备最简略的方法，自己感觉这也是 hash 被设为默许方法的原因
+history 方法需求服务端协作处理404的状况，但是路由中不带 # ，比 hash 漂亮一点。
+abstract 方法没有运用浏览器api，能够放到node环境或许桌面运用中， 自己感觉是对 spa运用 的兜底和才调扩展。
